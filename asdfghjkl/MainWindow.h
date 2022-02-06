@@ -5,7 +5,7 @@
 
 
 
-LRESULT MainWindowProcedures(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
+
 
 
 class MainWindow {
@@ -13,7 +13,7 @@ public:
 
 	int StartMainWindow();
 
-
+	static LRESULT MainWindowProcedures(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
 private:
 	
 

@@ -9,14 +9,14 @@ RECT SCREEN;
 
 
 
-
-LRESULT MainWindowProcedures(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
+LRESULT CALLBACK MainWindow::MainWindowProcedures(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp) //Эту фигню починить добавил статик
 {
 	switch (msg) {
 	case WM_DESTROY:
 		PostQuitMessage(0);
 	case WM_KEYDOWN:
 		std::cout << wp;
+		player.MoveUnit(wp);
 	case WM_SIZE:
 		GetClientRect(hWnd, &SCREEN);
 	default:
@@ -41,7 +41,7 @@ int MainWindow::StartMainWindow()
 	
 	HDC dc = GetDC(hwnd); 
 
-	
+	player.UnitInit(100,100,50,50);
 
 
 	ShowWindow(hwnd, SW_SHOWNORMAL);

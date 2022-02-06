@@ -2,7 +2,7 @@
 
 
 
-unit::unit(std::string name)
+unit::unit(std::string name, bool IsPlayer = true)
 {
 	ID = UnitCount();
 	++UnitCount();
@@ -17,7 +17,7 @@ void unit::SetParams(int str, int agi, int intelect, int vit)
 	AGI = 5 + LEVEL * AGr + agi;
 	INT = 5 + LEVEL * IGr + intelect;
 	VIT = 5 + LEVEL * VGr + vit;
-
+	
 	Recalculate();
 }
 
@@ -79,11 +79,48 @@ void unit::death(unit* killer)
 	DEAD = true;
 }
 
-void unit::UnitInit(unit* obj, float xPos, float yPos, float width, float height)
+void unit::UnitInit(float xPos, float yPos, float width, float height)
 {
-		obj->pos = point(xPos, yPos);
-		obj->size = point(width, height);
-		obj->brush = RGB(0, 255, 0);
+		pos = point(xPos, yPos);
+		size = point(width, height);
+		brush = RGB(0, 255, 0);
+}
+
+void unit::MoveUnit(WPARAM key)
+{
+	switch (key) {
+	case 97:
+		Up();
+	case 96:
+		Right();
+	case 95:
+		Down();
+	case 94:
+		Left();
+	default:
+		break;
+	}
+}
+
+void unit::Up()
+{
+	pos.y -= SPD;
+	size.y -= SPD;
+}
+void unit::Right()
+{
+	pos.x += SPD;
+	size.x += SPD;
+}
+void unit::Down()
+{
+	pos.y += SPD;
+	size.y += SPD;
+}
+void unit::Right()
+{
+	pos.x -= SPD;
+	size.x -= SPD;
 }
 
 void unit::Recalculate(bool flag)
@@ -92,6 +129,7 @@ void unit::Recalculate(bool flag)
 	ATTACKSPEED = 5 - AGI / 2 + STR / 2;
 
 	DEFENCE = 5 + AGI / 4 + STR / 4 + Rhand.GETDEFENCE() + Lhand.GETDEFENCE();
+	SPD = 3 + AGI / 5 + STR / 5;
 
 	if (flag)
 		HEALTH = 100 + VIT / 2;
