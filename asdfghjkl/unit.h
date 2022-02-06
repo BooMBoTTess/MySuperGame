@@ -18,7 +18,7 @@ TPoint point(float x, float y);
 
 class unit {
 public:
-	unit(std::string name = "Unnamed", bool IsPlayer = true);
+	unit(std::string name = "Unnamed", bool pl = true);
 
 	void SetParams(int str = 0, int agi = 0, int intelect = 0, int vit = 0);
 	void ChooseParams();
@@ -30,8 +30,8 @@ public:
 	void death(unit* killer);
 
 	void UnitInit(float xPos, float yPos, float width, float height);
-
-	void MoveUnit(WPARAM key);
+	void DrawUnit(HDC dc);
+	void MoveUnit(HDC dc);
 
 	void Up();
 	void Right();
@@ -51,15 +51,15 @@ private:
 	int ATTACK, DEFENCE, ATTACKSPEED, HEALTH;
 
 	TPoint pos;
+	TPoint move;
 	TPoint size;
 	COLORREF brush;
 	
 	
-	bool IsPlayer;
+	bool IsPlayer = true;
 	bool DEAD = false;
 	size_t& UnitCount() { static size_t c = 1; return c; };
 
 	std::string NAME;
 };
 
-unit player("Vasyan");

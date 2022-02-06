@@ -2,13 +2,14 @@
 
 
 
-unit::unit(std::string name, bool IsPlayer = true)
+unit::unit(std::string name, bool pl)
 {
 	ID = UnitCount();
 	++UnitCount();
 
 	SetParams();
 	NAME = name;
+	IsPlayer = pl;
 }
 
 void unit::SetParams(int str, int agi, int intelect, int vit)
@@ -86,22 +87,37 @@ void unit::UnitInit(float xPos, float yPos, float width, float height)
 		brush = RGB(0, 255, 0);
 }
 
-void unit::MoveUnit(WPARAM key)
+void unit::DrawUnit(HDC dc)
 {
-	switch (key) {
-	case 97:
-		Up();
-	case 96:
-		Right();
-	case 95:
-		Down();
-	case 94:
-		Left();
-	default:
-		break;
-	}
+	SelectObject(dc, GetStockObject(DC_PEN));
+	SetDCBrushColor(dc, RGB(0, 0, 0));
+	SelectObject(dc, GetStockObject(DC_BRUSH));
+	SetDCBrushColor(dc, RGB(0, 255, 0));
+	Rectangle(dc, pos.x, pos.y, size.x, size.y);
 }
 
+void unit::MoveUnit(HDC dc)
+{
+	
+	move.x = 0;
+	move.y = 0;
+	
+	if (GetKeyState('W') < 0) move.y = -SPD;
+	if (GetKeyState('S') < 0) move.y = SPD;
+	if (GetKeyState('A') < 0) move.x = -SPD;
+	if (GetKeyState('D') < 0) move.x = SPD;
+	if ((move.x != 0) && (move.y != 0)) {
+		move.x *= 0.7;
+		move.y *= 0.7;
+	}
+
+	pos.x += move.x;
+	size.x += move.x;
+	pos.y += move.y;
+	size.y += move.y;
+}
+
+// ÔÓÍÊÖÈÈ ÄËß ÁÓÄÓÙÅÉ ÀÍÈÌÀÖÈÈ 
 void unit::Up()
 {
 	pos.y -= SPD;
@@ -117,11 +133,12 @@ void unit::Down()
 	pos.y += SPD;
 	size.y += SPD;
 }
-void unit::Right()
+void unit::Left()
 {
 	pos.x -= SPD;
 	size.x -= SPD;
 }
+// Êîíåö ôóíêöèé äëÿ áóäóùåé àíèìàöèè
 
 void unit::Recalculate(bool flag)
 {

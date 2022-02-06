@@ -3,7 +3,7 @@
 #include "unit.h"
 
 
-
+unit player("Vasyan");
 
 RECT SCREEN;
 
@@ -14,9 +14,6 @@ LRESULT CALLBACK MainWindow::MainWindowProcedures(HWND hWnd, UINT msg, WPARAM wp
 	switch (msg) {
 	case WM_DESTROY:
 		PostQuitMessage(0);
-	case WM_KEYDOWN:
-		std::cout << wp;
-		player.MoveUnit(wp);
 	case WM_SIZE:
 		GetClientRect(hWnd, &SCREEN);
 	default:
@@ -41,6 +38,8 @@ int MainWindow::StartMainWindow()
 	
 	HDC dc = GetDC(hwnd); 
 
+	
+
 	player.UnitInit(100,100,50,50);
 
 
@@ -58,7 +57,9 @@ int MainWindow::StartMainWindow()
 			
 		}
 		else {
-			WinDraw(dc);
+			
+			WNDraw(dc);
+			
 			Sleep(5);
 		}
 		
@@ -68,20 +69,36 @@ int MainWindow::StartMainWindow()
 }
 
 
-void MainWindow::WinDraw(HDC dc)
+void MainWindow::ObjectsDraw(HDC dc)
+{
+	// Для всех объектов блаблабал сделать функцию рисования. но покачто пох
+	player.DrawUnit(dc);
+}
+
+void MainWindow::WNDraw(HDC dc)
 {
 	HDC memDC = CreateCompatibleDC(dc); // то начем рисовать
 	HBITMAP memBM = CreateCompatibleBitmap(dc, SCREEN.right - SCREEN.left, SCREEN.bottom - SCREEN.top);
 	SelectObject(memDC, memBM);
 
+	//Обернуть в BGDRAW
 	SelectObject(memDC, GetStockObject(DC_BRUSH));	
 	SetDCBrushColor(memDC, RGB(255, 255, 255));
-	Rectangle(memDC, 0, 0, 640, 480); //Скрин
+	Rectangle(memDC, 0, 0, 640, 480); 
+	//Скрин. Обернуть до сюда
 
+
+	ObjectsMove(memDC);
+	ObjectsDraw(memDC);
 	
-	
+
 	BitBlt(dc, 0, 0, SCREEN.right - SCREEN.left, SCREEN.bottom - SCREEN.top, memDC, 0, 0, SRCCOPY); // То начем рисовали кидается на экран
 	DeleteDC(memDC);
 	DeleteObject(memBM);
+}
+
+void MainWindow::ObjectsMove(HDC dc)
+{
+	player.MoveUnit(dc);
 }
 
