@@ -1,8 +1,10 @@
 #include <iostream>
 #include <string>
+
+
 #include "unit.h"
 #include "weapon.h"
-
+#include "MainWindow.h"
 
 void Items(weapon* m) {
 	std::cout << "Magazin" << std::endl;
@@ -13,8 +15,7 @@ void Items(weapon* m) {
 	std::cout << "The end" << std::endl;
 }
 
-int main() {
-
+void bumaguga() {
 	weapon magazin[4] = { {15, 2, 1, "Sword beauty"}, {13, 2, 1, "Sword not so beauty"},
 						  {1, 11, 1, "shit very not beauty"}, {2, 10, 1, "shit super shit"} };
 	unit A = unit("Vasyan");
@@ -52,6 +53,24 @@ int main() {
 		A.status();
 		B.status();
 	}
+}
+
+
+
+
+
+
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
+{
+	MainWindow w;
+	w.StartMainWindow();
+	
+}
+
+
+int main()
+{
+	MainWindow w;
+	w.StartMainWindow();
 
 }
-	
