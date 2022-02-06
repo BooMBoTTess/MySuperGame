@@ -12,8 +12,7 @@ class MainWindow {
 public:
 
 	int StartMainWindow();
-
-	static LRESULT MainWindowProcedures(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
+	static LRESULT CALLBACK MainWindowProcedures(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
 private:
 	
 
