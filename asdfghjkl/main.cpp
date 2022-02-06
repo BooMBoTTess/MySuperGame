@@ -2,9 +2,13 @@
 #include <string>
 
 
+
 #include "unit.h"
 #include "weapon.h"
+#include "ObjList.h"
+
 #include "MainWindow.h"
+
 
 void Items(weapon* m) {
 	std::cout << "Magazin" << std::endl;
@@ -59,7 +63,6 @@ void bumaguga() {
 
 
 
-
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
 	MainWindow w;
@@ -70,7 +73,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 int main()
 {
+	
 	MainWindow w;
 	w.StartMainWindow();
-
 }

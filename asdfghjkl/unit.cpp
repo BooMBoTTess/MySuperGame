@@ -79,6 +79,13 @@ void unit::death(unit* killer)
 	DEAD = true;
 }
 
+void unit::UnitInit(unit* obj, float xPos, float yPos, float width, float height)
+{
+		obj->pos = point(xPos, yPos);
+		obj->size = point(width, height);
+		obj->brush = RGB(0, 255, 0);
+}
+
 void unit::Recalculate(bool flag)
 {
 	ATTACK = 10 + STR / 3 + Rhand.GETDAMAGE() + Lhand.GETDAMAGE();
@@ -89,3 +96,12 @@ void unit::Recalculate(bool flag)
 	if (flag)
 		HEALTH = 100 + VIT / 2;
 }
+
+TPoint point(float x, float y)
+{
+	TPoint tp;
+	tp.x = x;
+	tp.y = y;
+	return tp;
+}
+

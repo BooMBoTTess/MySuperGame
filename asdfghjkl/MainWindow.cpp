@@ -1,42 +1,13 @@
 #include "MainWindow.h"
 #include <iostream>
+#include "unit.h"
+
+
+
 
 RECT SCREEN;
 
 
-
-struct TObject {
-	TPoint pos;
-	TPoint size;
-	COLORREF brush;
-};
-
-void ObjectInit(TObject* obj, float xPos, float yPos, float width, float height) {
-	obj->pos = point(xPos, yPos);
-	obj->size = point(width, height);
-	obj->brush = RGB(0, 255, 0);
-
-
-}
-
-void ObjectShow(TObject obj, HDC dc) {
-	SelectObject(dc, GetStockObject(DC_PEN));
-	SetDCPenColor(dc, RGB(0, 0, 0));
-	SelectObject(dc, GetStockObject(DC_BRUSH));
-	SetDCBrushColor(dc, obj.brush);
-	Ellipse(dc, (int)(obj.pos.x), (int)(obj.pos.y), (int)(obj.pos.x) + obj.size.x, (int)(obj.pos.y) + obj.size.y);
-}
-
-TObject player;
-
-
-TPoint point(float x, float y)
-{
-	TPoint tp;
-	tp.x = x;
-	tp.y = y;
-	return tp;
-}
 
 
 LRESULT MainWindowProcedures(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -70,7 +41,8 @@ int MainWindow::StartMainWindow()
 	
 	HDC dc = GetDC(hwnd); 
 
-	ObjectInit(&player, 100, 100, 50, 50);
+	
+
 
 	ShowWindow(hwnd, SW_SHOWNORMAL);
 	MSG msg;
@@ -106,7 +78,7 @@ void MainWindow::WinDraw(HDC dc)
 	SetDCBrushColor(memDC, RGB(255, 255, 255));
 	Rectangle(memDC, 0, 0, 640, 480); //Скрин
 
-	ObjectShow(player, memDC);
+	
 	
 	BitBlt(dc, 0, 0, SCREEN.right - SCREEN.left, SCREEN.bottom - SCREEN.top, memDC, 0, 0, SRCCOPY); // То начем рисовали кидается на экран
 	DeleteDC(memDC);
