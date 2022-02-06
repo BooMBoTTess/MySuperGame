@@ -27,4 +27,3 @@ private:
 	size_t& WeaponCount() { static size_t c = 1; return c; };
 };
 
-unit* UNITS;

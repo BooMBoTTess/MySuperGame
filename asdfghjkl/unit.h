@@ -3,8 +3,9 @@
 
 #include <iostream>
 #include <string>
-#include <windows.h>
 
+
+#include "MainWindow.h"
 #include "weapon.h"
 
 
@@ -17,7 +18,7 @@ TPoint point(float x, float y);
 
 class unit {
 public:
-	unit(std::string name = "Unnamed");
+	unit(std::string name = "Unnamed", bool pl = true);
 
 	void SetParams(int str = 0, int agi = 0, int intelect = 0, int vit = 0);
 	void ChooseParams();
@@ -28,7 +29,14 @@ public:
 	void status();
 	void death(unit* killer);
 
-	void UnitInit(unit* obj, float xPos, float yPos, float width, float height);
+	void UnitInit(float xPos, float yPos, float width, float height);
+	void DrawUnit(HDC dc);
+	void MoveUnit(HDC dc);
+
+	void Up();
+	void Right();
+	void Down();
+	void Left();
 
 private:
 	void Recalculate(bool flag = 1);
@@ -36,19 +44,22 @@ private:
 	int ID;
 	int LEVEL = 1;
 	int STR, AGI, INT, VIT;
+	float SPD;
 	int SGr = 1; int AGr = 1; int IGr = 1; int VGr = 2;
 	float EXP = 0;
 	weapon Lhand, Rhand;
 	int ATTACK, DEFENCE, ATTACKSPEED, HEALTH;
 
 	TPoint pos;
+	TPoint move;
 	TPoint size;
 	COLORREF brush;
-
+	
+	
+	bool IsPlayer = true;
 	bool DEAD = false;
 	size_t& UnitCount() { static size_t c = 1; return c; };
 
 	std::string NAME;
 };
-
 

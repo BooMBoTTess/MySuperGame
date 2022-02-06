@@ -5,19 +5,20 @@
 
 
 
-LRESULT MainWindowProcedures(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
+
 
 
 class MainWindow {
 public:
 
 	int StartMainWindow();
-
-
+	static LRESULT CALLBACK MainWindowProcedures(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
+	
 private:
 	
-
-	void WinDraw(HDC dc);
+	void ObjectsDraw(HDC dc);
+	void WNDraw(HDC dc);
+	void ObjectsMove(HDC dc);
 	
 };
 
