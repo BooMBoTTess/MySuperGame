@@ -5,9 +5,6 @@
 
 
 
-
-
-
 class MainWindow {
 public:
 
@@ -19,6 +16,6 @@ private:
 	void ObjectsDraw(HDC dc);
 	void WNDraw(HDC dc);
 	void ObjectsMove(HDC dc);
-	
+	BOOL DrawLine(HDC hdc, int x1, int y1, int x2, int y2);
 };
 

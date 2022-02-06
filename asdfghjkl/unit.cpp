@@ -2,7 +2,7 @@
 
 
 
-unit::unit(std::string name, bool pl)
+unit::unit(const char* name, bool pl)
 {
 	ID = UnitCount();
 	++UnitCount();

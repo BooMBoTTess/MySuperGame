@@ -1,12 +1,12 @@
 #include "MainWindow.h"
 #include <iostream>
 #include "unit.h"
+#include "weapon.h"
 
-
-unit player("Vasyan");
 
 RECT SCREEN;
 
+unit player;
 
 
 LRESULT CALLBACK MainWindow::MainWindowProcedures(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp) //Эту фигню починить добавил статик
@@ -37,6 +37,9 @@ int MainWindow::StartMainWindow()
 
 	
 	HDC dc = GetDC(hwnd); 
+
+	unit UNITS[2];
+	int* a = new int[3];
 
 	
 
@@ -92,6 +95,8 @@ void MainWindow::WNDraw(HDC dc)
 	ObjectsDraw(memDC);
 	
 
+	DrawLine(memDC, 50, 100, 100, 200);
+
 	BitBlt(dc, 0, 0, SCREEN.right - SCREEN.left, SCREEN.bottom - SCREEN.top, memDC, 0, 0, SRCCOPY); // То начем рисовали кидается на экран
 	DeleteDC(memDC);
 	DeleteObject(memBM);
@@ -100,5 +105,11 @@ void MainWindow::WNDraw(HDC dc)
 void MainWindow::ObjectsMove(HDC dc)
 {
 	player.MoveUnit(dc);
+}
+
+BOOL MainWindow::DrawLine(HDC hdc, int x1, int y1, int x2, int y2)
+{
+	MoveToEx(hdc, x1, y1, NULL); //сделать текущими координаты x1, y1
+	return LineTo(hdc, x2, y2);
 }
 

@@ -18,7 +18,7 @@ TPoint point(float x, float y);
 
 class unit {
 public:
-	unit(std::string name = "Unnamed", bool pl = true);
+	unit(const char* name = "Unnamed", bool pl = true);
 
 	void SetParams(int str = 0, int agi = 0, int intelect = 0, int vit = 0);
 	void ChooseParams();
