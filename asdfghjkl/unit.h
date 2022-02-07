@@ -9,7 +9,7 @@
 #include "weapon.h"
 
 
-struct TPoint { float x, y; };
+struct TPoint { int x, y; };
 
 TPoint point(float x, float y);
 
@@ -18,7 +18,7 @@ TPoint point(float x, float y);
 
 class unit {
 public:
-	unit(const char* name = "Unnamed", bool pl = true);
+	unit(const char* name = "Unnamed", bool pl = false, float xPos = -100, float yPos = -100, float width = 50, float height = 50);
 
 	void SetParams(int str = 0, int agi = 0, int intelect = 0, int vit = 0);
 	void ChooseParams();
@@ -29,15 +29,16 @@ public:
 	void status();
 	void death(unit* killer);
 
-	void UnitInit(float xPos, float yPos, float width, float height);
+
 	void DrawUnit(HDC dc);
-	void MoveUnit(HDC dc);
+	void MoveUnit();
 
 	void Up();
 	void Right();
 	void Down();
 	void Left();
 
+	const char* GetName();
 private:
 	void Recalculate(bool flag = 1);
 
@@ -60,6 +61,6 @@ private:
 	bool DEAD = false;
 	size_t& UnitCount() { static size_t c = 1; return c; };
 
-	std::string NAME;
+	const char* NAME;
 };
 

@@ -2,7 +2,7 @@
 
 
 
-unit::unit(const char* name, bool pl)
+unit::unit(const char* name, bool pl, float xPos, float yPos, float width, float height)
 {
 	ID = UnitCount();
 	++UnitCount();
@@ -10,6 +10,10 @@ unit::unit(const char* name, bool pl)
 	SetParams();
 	NAME = name;
 	IsPlayer = pl;
+
+	pos = point(xPos, yPos);
+	size = point(width, height);
+	brush = RGB(0, 255, 0);
 }
 
 void unit::SetParams(int str, int agi, int intelect, int vit)
@@ -80,23 +84,19 @@ void unit::death(unit* killer)
 	DEAD = true;
 }
 
-void unit::UnitInit(float xPos, float yPos, float width, float height)
-{
-		pos = point(xPos, yPos);
-		size = point(width, height);
-		brush = RGB(0, 255, 0);
-}
 
 void unit::DrawUnit(HDC dc)
 {
+	// std::cout << NAME << ' ' << pos.x << ' ' << pos.y << std::endl;
+
 	SelectObject(dc, GetStockObject(DC_PEN));
 	SetDCBrushColor(dc, RGB(0, 0, 0));
 	SelectObject(dc, GetStockObject(DC_BRUSH));
 	SetDCBrushColor(dc, RGB(0, 255, 0));
-	Rectangle(dc, pos.x, pos.y, size.x, size.y);
+	Ellipse(dc, pos.x, pos.y, pos.x + size.x, pos.y + size.y);
 }
 
-void unit::MoveUnit(HDC dc)
+void unit::MoveUnit()
 {
 	
 	move.x = 0;
@@ -110,11 +110,10 @@ void unit::MoveUnit(HDC dc)
 		move.x *= 0.7;
 		move.y *= 0.7;
 	}
+	
 
 	pos.x += move.x;
-	size.x += move.x;
 	pos.y += move.y;
-	size.y += move.y;
 }
 
 // ÔÓÍÊÖÈÈ ÄËß ÁÓÄÓÙÅÉ ÀÍÈÌÀÖÈÈ 
@@ -138,7 +137,13 @@ void unit::Left()
 	pos.x -= SPD;
 	size.x -= SPD;
 }
+
 // Êîíåö ôóíêöèé äëÿ áóäóùåé àíèìàöèè
+
+const char* unit::GetName()
+{
+	return NAME;
+}
 
 void unit::Recalculate(bool flag)
 {
@@ -146,7 +151,7 @@ void unit::Recalculate(bool flag)
 	ATTACKSPEED = 5 - AGI / 2 + STR / 2;
 
 	DEFENCE = 5 + AGI / 4 + STR / 4 + Rhand.GETDEFENCE() + Lhand.GETDEFENCE();
-	SPD = 3 + AGI / 5 + STR / 5;
+	SPD = 1 + AGI / 5 + STR / 5;
 
 	if (flag)
 		HEALTH = 100 + VIT / 2;
