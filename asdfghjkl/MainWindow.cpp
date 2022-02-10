@@ -4,24 +4,21 @@
 #include "weapon.h"
 #include "GraphicsView.h"
 
-
-MSG msg;
+HWND hwnd;
 
 
 RECT SCREEN;
 
 
 DWORD MainWindow::Graph(LPVOID lp) {
+	GraphicsView GraphicProc(hwnd, SCREEN);
 
 	std::cout << "FLOOOOOOOW";
 	while (1) {
-		std::cout << "1";
-		if (PeekMessageA(&msg, NULL, 0, 0, PM_REMOVE) > 0) {
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-			std::cout << std::endl << &msg.wParam << std::endl;
-		}
-	Sleep(41);
+		GraphicProc.WNDraw();
+		Sleep(41);
+
+		
 	}
 	ExitThread(0);
 }
@@ -70,15 +67,28 @@ int MainWindow::StartMainWindow()
 	RegisterClassA(&wcl);
 	hwnd = CreateWindow(ClassName, L"OKNO OHUENNOE", WS_OVERLAPPEDWINDOW, 10,
 		10, 640, 480, NULL, NULL, NULL, NULL);
-	ShowWindow(hwnd, SW_SHOWNORMAL);
-	GraphicsView GraphicProc(hwnd, SCREEN);
-
+	
+	
+	
 	GRAPHThread = CreateThread(NULL, 0, Graph, NULL, 0, NULL);
+
+	
+	ShowWindow(hwnd, SW_SHOWNORMAL);
 	while (1) {
-		GraphicProc.WNDraw();
-	Sleep(41);
+		std::cout << '1';
+		if (PeekMessageA(&msg, NULL, 0, 0, PM_REMOVE)) {
+			std::cout << '3';
+			if (msg.message == WM_QUIT) break;
+
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+			std::cout << std::endl << &msg.wParam << std::endl;
+			Sleep(41);
+		}
 	}
 	return 0;
 }
+	
+
 
 

@@ -15,8 +15,11 @@ private:
 	static LRESULT CALLBACK MainWindowProcedures(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
 	HANDLE GRAPHThread;
 
+	
+
 	static DWORD WINAPI Graph(LPVOID lp);
-	HWND hwnd;
+
+	MSG msg;
 	LPCWSTR ClassName = L"MainWindowClass";
 	LPCSTR ClassName2 = "MainWindowClass";
 };
