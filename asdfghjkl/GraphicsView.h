@@ -13,6 +13,8 @@ public:
 	void ObjectsDraw();
 	void WNDraw();
 private:
+	
+
 	HDC dc;
 	HDC memDC;
 	RECT& SCREEN;

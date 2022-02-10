@@ -13,7 +13,6 @@ unit::unit(const char* name, bool pl, float xPos, float yPos, float width, float
 
 	pos = point(xPos, yPos);
 	size = point(width, height);
-	brush = RGB(0, 255, 0);
 }
 
 void unit::SetParams(int str, int agi, int intelect, int vit)
@@ -89,10 +88,8 @@ void unit::DrawUnit(HDC dc)
 {
 	// std::cout << NAME << ' ' << pos.x << ' ' << pos.y << std::endl;
 
-	SelectObject(dc, GetStockObject(DC_PEN));
-	SetDCBrushColor(dc, RGB(0, 0, 0));
-	SelectObject(dc, GetStockObject(DC_BRUSH));
-	SetDCBrushColor(dc, RGB(0, 255, 0));
+	SelectObject(dc, Pen);
+	SelectObject(dc, Brush);
 	Ellipse(dc, pos.x, pos.y, pos.x + size.x, pos.y + size.y);
 }
 

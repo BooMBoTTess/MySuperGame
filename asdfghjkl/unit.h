@@ -54,10 +54,10 @@ private:
 	TPoint pos;
 	TPoint move;
 	TPoint size;
-	COLORREF brush;
+	HBRUSH Brush = CreateSolidBrush(RGB(0, 255, 0));
+	HPEN Pen = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
 	
-	
-	bool IsPlayer = true;
+	bool IsPlayer;
 	bool DEAD = false;
 	size_t& UnitCount() { static size_t c = 1; return c; };
 

@@ -30,10 +30,10 @@ LRESULT CALLBACK MainWindow::MainWindowProcedures(HWND hWnd, UINT msg, WPARAM wp
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
-	//case WM_KEYDOWN:
-	//	std::cout << '5';
-	//	ObjectsMove();
-	//	break;
+
+	case WM_KEYDOWN:
+		std::cout << "KEYDOWN";
+		break;
 	case WM_SIZE:
 	{
 		GetClientRect(hWnd, &SCREEN);
@@ -43,14 +43,14 @@ LRESULT CALLBACK MainWindow::MainWindowProcedures(HWND hWnd, UINT msg, WPARAM wp
 		//HBITMAP memBM = CreateCompatibleBitmap(dc, SCREEN.right - SCREEN.left, SCREEN.bottom - SCREEN.top);
 		//SelectObject(memDC, memBM);
 	}
-
 	case WM_MOUSEMOVE:
-		
+	{
+		std::cout << "MOUSEDOWN";
 		break;
-
+	}
 	default:
 		std::cout << '4';
-	return DefWindowProcA(hWnd, msg, wp, lp);
+		return DefWindowProcA(hWnd, msg, wp, lp);
 	}
 }
 
@@ -72,18 +72,17 @@ int MainWindow::StartMainWindow()
 
 	
 	ShowWindow(hwnd, SW_SHOWNORMAL);
-	while (1) {
+	while (msg.message != WM_QUIT) {
 		std::cout << '1';
-		if (PeekMessageA(&msg, NULL, 0, 0, PM_REMOVE) > 0) {
+		while (PeekMessageA(&msg, NULL, 0, 0, PM_REMOVE) > 0) {
 			std::cout << '3';
 			if (msg.message == WM_QUIT) break;
 
-			TranslateMessage(&msg);
 			DispatchMessage(&msg);
-			std::cout << std::endl << &msg.wParam << std::endl;
+			std::cout << std::endl << &msg.message << std::endl;
 
 		}
-		Sleep(120);
+		Sleep(50);
 	}
 	return 0;
 }

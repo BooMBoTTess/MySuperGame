@@ -10,6 +10,8 @@ unit* UNITS[UNITS_LENGHT] = { &player, &A, &B };
 GraphicsView::GraphicsView(HWND hwnd, RECT& SCREEN) :  SCREEN(SCREEN)
 {
 	dc = GetDC(hwnd);
+
+	
 }
 
 void GraphicsView::ObjectsDraw()
