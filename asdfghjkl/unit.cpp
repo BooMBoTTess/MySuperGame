@@ -151,7 +151,7 @@ void unit::Recalculate(bool flag)
 	ATTACKSPEED = 5 - AGI / 2 + STR / 2;
 
 	DEFENCE = 5 + AGI / 4 + STR / 4 + Rhand.GETDEFENCE() + Lhand.GETDEFENCE();
-	SPD = 1 + AGI / 5 + STR / 5;
+	SPD = 5 + AGI / 5 + STR / 5;
 
 	if (flag)
 		HEALTH = 100 + VIT / 2;
