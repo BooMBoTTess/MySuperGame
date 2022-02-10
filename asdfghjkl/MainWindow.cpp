@@ -5,7 +5,7 @@
 #include "GraphicsView.h"
 
 HWND hwnd;
-
+MSG msg;
 
 RECT SCREEN;
 
@@ -16,9 +16,7 @@ DWORD MainWindow::Graph(LPVOID lp) {
 	std::cout << "FLOOOOOOOW";
 	while (1) {
 		GraphicProc.WNDraw();
-		Sleep(41);
-
-		
+		Sleep(40);
 	}
 	ExitThread(0);
 }
@@ -66,7 +64,7 @@ int MainWindow::StartMainWindow()
 	wcl.hCursor = LoadCursor(NULL, IDC_ARROW);
 	RegisterClassA(&wcl);
 	hwnd = CreateWindow(ClassName, L"OKNO OHUENNOE", WS_OVERLAPPEDWINDOW, 10,
-		10, 640, 480, NULL, NULL, NULL, NULL);
+		10, 480, 640, NULL, NULL, NULL, NULL);
 	
 	
 	
@@ -76,15 +74,16 @@ int MainWindow::StartMainWindow()
 	ShowWindow(hwnd, SW_SHOWNORMAL);
 	while (1) {
 		std::cout << '1';
-		if (PeekMessageA(&msg, NULL, 0, 0, PM_REMOVE)) {
+		if (PeekMessageA(&msg, NULL, 0, 0, PM_REMOVE) > 0) {
 			std::cout << '3';
 			if (msg.message == WM_QUIT) break;
 
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 			std::cout << std::endl << &msg.wParam << std::endl;
-			Sleep(41);
+
 		}
+		Sleep(120);
 	}
 	return 0;
 }

@@ -14,12 +14,13 @@ private:
 	WNDCLASSA wcl;
 	static LRESULT CALLBACK MainWindowProcedures(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
 	HANDLE GRAPHThread;
-
+	HANDLE MainThread;
+	
+	static DWORD WINAPI Graph(LPVOID lp);
 	
 
-	static DWORD WINAPI Graph(LPVOID lp);
-
-	MSG msg;
 	LPCWSTR ClassName = L"MainWindowClass";
 	LPCSTR ClassName2 = "MainWindowClass";
+
+	
 };

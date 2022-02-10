@@ -11,7 +11,7 @@
 
 struct TPoint { int x, y; };
 
-TPoint point(float x, float y);
+TPoint point(int x, int y);
 
 
 

@@ -23,7 +23,7 @@ void GraphicsView::ObjectsDraw()
 void GraphicsView::BGDraw()
 {
 	SelectObject(memDC, GetStockObject(DC_BRUSH));
-	SetDCBrushColor(memDC, RGB(255, 0, 255));
+	SetDCBrushColor(memDC, RGB(255, 255, 255));
 	Rectangle(memDC, SCREEN.left, SCREEN.top, SCREEN.right, SCREEN.bottom);
 }
 

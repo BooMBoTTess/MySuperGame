@@ -157,7 +157,7 @@ void unit::Recalculate(bool flag)
 		HEALTH = 100 + VIT / 2;
 }
 
-TPoint point(float x, float y)
+TPoint point(int x, int y)
 {
 	TPoint tp;
 	tp.x = x;
